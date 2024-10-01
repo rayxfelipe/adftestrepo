@@ -2,15 +2,23 @@
 	"name": "rayazuresqldb",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"description": "a",
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql-server.database.windows.net;Initial Catalog=rayazuresqldb1"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "RayFKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "azuresqldb2secret"
+			}
 		},
 		"connectVia": {
-			"referenceName": "AutoResolveIntegrationRuntime",
+			"referenceName": "IRforrayadfinstance1",
 			"type": "IntegrationRuntimeReference"
-		},
-		"description": "a"
+		}
 	}
 }

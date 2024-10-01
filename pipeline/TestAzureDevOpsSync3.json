@@ -1,10 +1,10 @@
 {
-	"name": "TestAzureDevOpsSync1",
+	"name": "TestAzureDevOpsSync3",
 	"properties": {
 		"activities": [
 			{
 				"name": "Copy data1",
-				"description": "pipe 1 changed.",
+				"description": "pipe 2 changed. d",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {

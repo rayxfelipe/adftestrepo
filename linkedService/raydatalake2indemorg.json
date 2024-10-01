@@ -6,10 +6,10 @@
 		"type": "AzureBlobFS",
 		"typeProperties": {
 			"url": "https://datalakaeacctindemorg.dfs.core.windows.net/",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDFFQzg4ODA1LUQyQzMtNDJEQi05RUNDLTQ2MTFBNTNCMzAzMl8yYjZkMjhmMy0zYjE3LTQ5ZWEtOGY5Ny1mNDczOWVlM2Q2ZGYiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDkzQUQwOUI4LTk4NTMtNDI1OS1BODhCLUFFRjlFQTQzNDdDQV85YjI3NGJhOC1mMDY3LTRiZTctYjJhMS0yMmY4MjMyY2FlMmUiDQp9"
 		},
 		"connectVia": {
-			"referenceName": "AutoResolveIntegrationRuntime",
+			"referenceName": "IRforrayadfinstance1",
 			"type": "IntegrationRuntimeReference"
 		}
 	}

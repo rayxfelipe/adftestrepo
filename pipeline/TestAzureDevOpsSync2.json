@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy data1",
-				"description": "pipe 2 changed. b",
+				"description": "pipe 2 changed. x",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -63,7 +63,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2024-01-09T00:30:07Z"
+		"lastPublishTime": "2024-03-15T17:19:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

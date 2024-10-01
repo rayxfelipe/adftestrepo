@@ -1,0 +1,21 @@
+{
+	"name": "Azuretestdatetime",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"testvalue1": {
+				"type": "string",
+				"defaultValue": "value1"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": ""
+		},
+		"connectVia": {
+			"referenceName": "IRforrayadfinstance1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

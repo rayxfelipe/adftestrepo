@@ -1,0 +1,9 @@
+{
+	"name": "ray-adf-instance3",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a5a23fa2-7222-4784-b073-69c87cdf07b5",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}
