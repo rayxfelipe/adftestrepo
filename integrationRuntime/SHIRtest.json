@@ -1,0 +1,6 @@
+{
+	"name": "SHIRtest",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

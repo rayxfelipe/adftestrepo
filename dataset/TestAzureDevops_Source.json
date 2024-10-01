@@ -1,0 +1,57 @@
+{
+	"name": "TestAzureDevops_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "raydatalake2indemorg_createdinadf2collab",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "CannabisTaxRevenues.csv",
+				"fileSystem": "dcc"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Calendar_Year",
+				"type": "String"
+			},
+			{
+				"name": "Quarter",
+				"type": "String"
+			},
+			{
+				"name": "Excise_Tax",
+				"type": "String"
+			},
+			{
+				"name": "Cultivation_Tax",
+				"type": "String"
+			},
+			{
+				"name": "Sales_Tax",
+				"type": "String"
+			},
+			{
+				"name": "Total_Tax",
+				"type": "String"
+			},
+			{
+				"name": "Year_Quarter",
+				"type": "String"
+			},
+			{
+				"name": "Taxable_Sales",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

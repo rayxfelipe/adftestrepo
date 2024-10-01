@@ -1,0 +1,25 @@
+{
+	"name": "TestAzureDevOps_Target",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "raydatalake2indemorg_createdinadf2collab",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "test_azuredevops.csv",
+				"folderPath": "test_azuredevops",
+				"fileSystem": "cdphcalredi"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
