@@ -172,7 +172,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "",
+						"description": "test 1",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
