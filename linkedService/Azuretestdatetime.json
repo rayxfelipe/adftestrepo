@@ -12,10 +12,6 @@
 		"type": "AzureBlobStorage",
 		"typeProperties": {
 			"connectionString": ""
-		},
-		"connectVia": {
-			"referenceName": "IRforrayadfinstance1",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }

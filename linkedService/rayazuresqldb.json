@@ -15,10 +15,6 @@
 				},
 				"secretName": "azuresqldb2secret"
 			}
-		},
-		"connectVia": {
-			"referenceName": "IRforrayadfinstance1",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
