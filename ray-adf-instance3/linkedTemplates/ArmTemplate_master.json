@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ray-adf-instance3"
+		},
+		"Azuretestdatetime_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azuretestdatetime'"
+		},
+		"rayazuresqldb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'rayazuresqldb'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin"
+		},
+		"raydatalake2indemorg_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg'"
+		},
+		"raydatalake2indemorg_createdinadf2collab_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg_createdinadf2collab'"
+		},
+		"RayFKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://rayfkeyvault2.vault.azure.net/"
+		},
+		"raydatalake2indemorg_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalakaeacctindemorg.dfs.core.windows.net/"
+		},
+		"raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalakeindemorg2.dfs.core.windows.net/"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"type": "string",
+			"defaultValue": "ray-azuresql2-server.database.windows.net"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"type": "secureString"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ray-adf-instance3_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Azuretestdatetime_connectionString": {
+						"value": "[parameters('Azuretestdatetime_connectionString')]"
+					},
+					"rayazuresqldb_connectionString": {
+						"value": "[parameters('rayazuresqldb_connectionString')]"
+					},
+					"raydatalake2indemorg_accountKey": {
+						"value": "[parameters('raydatalake2indemorg_accountKey')]"
+					},
+					"raydatalake2indemorg_createdinadf2collab_accountKey": {
+						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_accountKey')]"
+					},
+					"RayFKeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('RayFKeyVault_properties_typeProperties_baseUrl')]"
+					},
+					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]"
+					},
+					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName')]"
+					},
+					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+					},
+					"raydatalake2indemorg_properties_typeProperties_url": {
+						"value": "[parameters('raydatalake2indemorg_properties_typeProperties_url')]"
+					},
+					"raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url": {
+						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ray-adf-instance3_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ray-adf-instance3_ArmTemplate_0')]"
+			]
+		}
+	]
+}

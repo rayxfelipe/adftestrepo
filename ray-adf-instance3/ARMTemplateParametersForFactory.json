@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ray-adf-instance3"
+		},
+		"Azuretestdatetime_connectionString": {
+			"value": ""
+		},
+		"rayazuresqldb_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin"
+		},
+		"raydatalake2indemorg_accountKey": {
+			"value": ""
+		},
+		"raydatalake2indemorg_createdinadf2collab_accountKey": {
+			"value": ""
+		},
+		"RayFKeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://rayfkeyvault2.vault.azure.net/"
+		},
+		"raydatalake2indemorg_properties_typeProperties_url": {
+			"value": "https://datalakaeacctindemorg.dfs.core.windows.net/"
+		},
+		"raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url": {
+			"value": "https://datalakeindemorg2.dfs.core.windows.net/"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "ray-azuresql2-server.database.windows.net"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "sqladmin"
+		},
+		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
+		}
+	}
+}
