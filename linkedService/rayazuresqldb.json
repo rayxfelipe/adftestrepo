@@ -5,7 +5,12 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql3-server.database.windows.net;Initial Catalog=WideWorldImporters-Standard;User ID=sqladmin",
+			"server": "ray-azuresql3-server.database.windows.net",
+			"database": "WideWorldImporters-Standard",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "sqladmin",
 			"password": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
