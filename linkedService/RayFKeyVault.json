@@ -1,11 +1,11 @@
 {
 	"name": "RayFKeyVault",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureKeyVault",
 		"typeProperties": {
-			"baseUrl": "https://rayfkeyvault2.vault.azure.net/"
+			"baseUrl": "https://RayFKeyVault2.vault.azure.net/"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
