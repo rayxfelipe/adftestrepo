@@ -18,7 +18,7 @@
 			"value": ""
 		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
-			"value": "https://rayfkeyvault2.vault.azure.net/"
+			"value": "https://RayFKeyVault.vault.azure.net/"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"value": "https://datalakaeacctindemorg.dfs.core.windows.net/"
