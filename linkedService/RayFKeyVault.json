@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureKeyVault",
 		"typeProperties": {
-			"baseUrl": "https://RayFKeyVault2.vault.azure.net/"
+			"baseUrl": "https://RayFKeyVault.vault.azure.net/"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
