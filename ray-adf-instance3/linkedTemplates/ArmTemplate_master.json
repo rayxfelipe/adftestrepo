@@ -11,11 +11,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azuretestdatetime'"
 		},
-		"rayazuresqldb_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'rayazuresqldb'",
-			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin"
-		},
 		"raydatalake2indemorg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg'"
@@ -26,7 +21,19 @@
 		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
-			"defaultValue": "https://rayfkeyvault2.vault.azure.net/"
+			"defaultValue": "https://RayFKeyVault.vault.azure.net/"
+		},
+		"rayazuresqldb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ray-azuresql3-server.database.windows.net"
+		},
+		"rayazuresqldb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "WideWorldImporters-Standard"
+		},
+		"rayazuresqldb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"type": "string",
@@ -77,9 +84,6 @@
 					"Azuretestdatetime_connectionString": {
 						"value": "[parameters('Azuretestdatetime_connectionString')]"
 					},
-					"rayazuresqldb_connectionString": {
-						"value": "[parameters('rayazuresqldb_connectionString')]"
-					},
 					"raydatalake2indemorg_accountKey": {
 						"value": "[parameters('raydatalake2indemorg_accountKey')]"
 					},
@@ -88,6 +92,12 @@
 					},
 					"RayFKeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('RayFKeyVault_properties_typeProperties_baseUrl')]"
+					},
+					"raydatalake2indemorg_properties_typeProperties_url": {
+						"value": "[parameters('raydatalake2indemorg_properties_typeProperties_url')]"
+					},
+					"raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url": {
+						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url')]"
 					},
 					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
 						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]"
@@ -98,11 +108,14 @@
 					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
 					},
-					"raydatalake2indemorg_properties_typeProperties_url": {
-						"value": "[parameters('raydatalake2indemorg_properties_typeProperties_url')]"
+					"rayazuresqldb_properties_typeProperties_server": {
+						"value": "[parameters('rayazuresqldb_properties_typeProperties_server')]"
 					},
-					"raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url": {
-						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_properties_typeProperties_url')]"
+					"rayazuresqldb_properties_typeProperties_database": {
+						"value": "[parameters('rayazuresqldb_properties_typeProperties_database')]"
+					},
+					"rayazuresqldb_properties_typeProperties_userName": {
+						"value": "[parameters('rayazuresqldb_properties_typeProperties_userName')]"
 					}
 				}
 			},

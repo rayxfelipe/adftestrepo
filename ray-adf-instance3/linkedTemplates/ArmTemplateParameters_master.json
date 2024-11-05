@@ -8,9 +8,6 @@
 		"Azuretestdatetime_connectionString": {
 			"value": ""
 		},
-		"rayazuresqldb_connectionString": {
-			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin"
-		},
 		"raydatalake2indemorg_accountKey": {
 			"value": ""
 		},
@@ -18,7 +15,16 @@
 			"value": ""
 		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
-			"value": "https://rayfkeyvault2.vault.azure.net/"
+			"value": "https://RayFKeyVault.vault.azure.net/"
+		},
+		"rayazuresqldb_properties_typeProperties_server": {
+			"value": "ray-azuresql3-server.database.windows.net"
+		},
+		"rayazuresqldb_properties_typeProperties_database": {
+			"value": "WideWorldImporters-Standard"
+		},
+		"rayazuresqldb_properties_typeProperties_userName": {
+			"value": "sqladmin"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"value": "https://datalakaeacctindemorg.dfs.core.windows.net/"
