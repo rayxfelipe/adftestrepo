@@ -9,16 +9,7 @@
 			"database": "WideWorldImporters-Standard",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
-			"authenticationType": "SQL",
-			"userName": "sqladmin",
-			"password": {
-				"type": "AzureKeyVaultSecret",
-				"store": {
-					"referenceName": "RayFKeyVault",
-					"type": "LinkedServiceReference"
-				},
-				"secretName": "azuresqldb2secret"
-			}
+			"authenticationType": "SystemAssignedManagedIdentity"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
