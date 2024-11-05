@@ -14,7 +14,7 @@
 		"rayazuresqldb_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'rayazuresqldb'",
-			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql2-server.database.windows.net;Initial Catalog=rayazuresqldb2;User ID=sqladmin"
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql3-server.database.windows.net;Initial Catalog=WideWorldImporters-Standard;User ID=sqladmin"
 		},
 		"raydatalake2indemorg_accountKey": {
 			"type": "secureString",
