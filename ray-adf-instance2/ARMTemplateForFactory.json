@@ -379,7 +379,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "Nov 5",
+						"description": "Nov 5 a",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
