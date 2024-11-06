@@ -11,11 +11,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azuretestdatetime'"
 		},
-		"rayazuresqldb_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'rayazuresqldb'",
-			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ray-azuresql3-server.database.windows.net;Initial Catalog=WideWorldImporters-Standard;User ID=sqladmin"
-		},
 		"raydatalake2indemorg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg'"
@@ -27,6 +22,14 @@
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://RayFKeyVault.vault.azure.net/"
+		},
+		"rayazuresqldb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ray-azuresql3-server.database.windows.net"
+		},
+		"rayazuresqldb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "WideWorldImporters-Standard"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"type": "string",
@@ -376,7 +379,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "111",
+						"description": "Nov 5",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
@@ -605,15 +608,11 @@
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"connectionString": "[parameters('rayazuresqldb_connectionString')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "RayFKeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "azuresqldb2secret"
-					}
+					"server": "[parameters('rayazuresqldb_properties_typeProperties_server')]",
+					"database": "[parameters('rayazuresqldb_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SystemAssignedManagedIdentity"
 				}
 			},
 			"dependsOn": [
