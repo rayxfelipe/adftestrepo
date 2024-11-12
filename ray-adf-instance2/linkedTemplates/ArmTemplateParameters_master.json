@@ -17,9 +17,6 @@
 		"raydatalake2indemorg_createdinadf2collab_accountKey": {
 			"value": ""
 		},
-		"AzureSqlDatabase1_password": {
-			"value": ""
-		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://RayFKeyVault.vault.azure.net/"
 		},
@@ -46,15 +43,6 @@
 		},
 		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"value": ""
-		},
-		"AzureSqlDatabase1_properties_typeProperties_server": {
-			"value": "ray-azuresql3-server.database.windows.net"
-		},
-		"AzureSqlDatabase1_properties_typeProperties_database": {
-			"value": "WideWorldImporters-Standard"
-		},
-		"AzureSqlDatabase1_properties_typeProperties_userName": {
-			"value": "sqladmin"
 		},
 		"containerUri": {
 			"value": ""
