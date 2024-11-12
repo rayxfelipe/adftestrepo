@@ -379,7 +379,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "Nov 12",
+						"description": "Nov 12 - b",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
@@ -693,6 +693,16 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ADF-Demo2-SHIR-VM')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -857,16 +867,6 @@
 			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
 			"apiVersion": "2018-06-01",
 			"properties": {},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADF-Demo2-SHIR-VM')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
 			"dependsOn": []
 		}
 	]
