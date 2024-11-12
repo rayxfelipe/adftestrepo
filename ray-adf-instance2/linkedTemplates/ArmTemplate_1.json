@@ -172,7 +172,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "Nov 5 a",
+						"description": "Nov 12",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
