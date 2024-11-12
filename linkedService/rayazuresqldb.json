@@ -1,5 +1,6 @@
 {
 	"name": "rayazuresqldb",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"description": "a",
 		"annotations": [],
@@ -7,10 +8,15 @@
 		"typeProperties": {
 			"server": "ray-azuresql3-server.database.windows.net",
 			"database": "WideWorldImporters-Standard",
-			"encrypt": "mandatory",
-			"trustServerCertificate": false,
-			"authenticationType": "SystemAssignedManagedIdentity"
+			"encrypt": "optional",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "sqladmin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3NzkwNDhlOC03MGI5LTQwM2YtYTBiYS1lOTgzZTEzYTk0MGEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ADF-Demo2-SHIR-VM",
+			"type": "IntegrationRuntimeReference"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
