@@ -31,10 +31,6 @@
 			"type": "string",
 			"defaultValue": "WideWorldImporters-Standard"
 		},
-		"rayazuresqldb_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "sqladmin"
-		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakaeacctindemorg.dfs.core.windows.net/"
@@ -383,7 +379,7 @@
 				"activities": [
 					{
 						"name": "Web1",
-						"description": "111",
+						"description": "Nov 5 a",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
@@ -616,21 +612,10 @@
 					"database": "[parameters('rayazuresqldb_properties_typeProperties_database')]",
 					"encrypt": "mandatory",
 					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('rayazuresqldb_properties_typeProperties_userName')]",
-					"password": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "RayFKeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "azuresqldb2secret"
-					}
+					"authenticationType": "SystemAssignedManagedIdentity"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/RayFKeyVault')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/raydatalake2indemorg')]",
@@ -792,16 +777,6 @@
 						}
 					}
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SHIRtest')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
