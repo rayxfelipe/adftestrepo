@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Web1",
-				"description": "Nov 12 - b in 2xx",
+				"description": "Nov 12 - b in 2xx1",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
