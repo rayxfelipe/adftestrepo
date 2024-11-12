@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ray-adf-instance2"
 		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
 		"Azuretestdatetime_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azuretestdatetime'"
@@ -22,6 +26,18 @@
 		"raydatalake2indemorg_createdinadf2collab_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg_createdinadf2collab'"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ray-azuresql3-server.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "TestDB1"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
 		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -94,6 +110,9 @@
 					"raydatalake2indemorg_createdinadf2collab_accountKey": {
 						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_accountKey')]"
 					},
+					"AzureSqlDatabase1_password": {
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					},
 					"rayazuresqldb_password": {
 						"value": "[parameters('rayazuresqldb_password')]"
 					},
@@ -114,6 +133,15 @@
 					},
 					"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 						"value": "[parameters('integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
 					},
 					"rayazuresqldb_properties_typeProperties_server": {
 						"value": "[parameters('rayazuresqldb_properties_typeProperties_server')]"

@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "ray-adf-instance2"
 		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
 		"Azuretestdatetime_connectionString": {
 			"value": ""
 		},
@@ -16,6 +19,15 @@
 		},
 		"raydatalake2indemorg_createdinadf2collab_accountKey": {
 			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "ray-azuresql3-server.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "TestDB1"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "sqladmin"
 		},
 		"RayFKeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://RayFKeyVault.vault.azure.net/"
