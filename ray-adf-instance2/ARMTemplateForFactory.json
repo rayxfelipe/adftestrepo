@@ -11,10 +11,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azuretestdatetime'"
 		},
-		"rayazuresqldb_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'rayazuresqldb'"
-		},
 		"raydatalake2indemorg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'raydatalake2indemorg'"
@@ -34,10 +30,6 @@
 		"rayazuresqldb_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "WideWorldImporters-Standard"
-		},
-		"rayazuresqldb_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "sqladmin"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"type": "string",
@@ -620,12 +612,7 @@
 					"database": "[parameters('rayazuresqldb_properties_typeProperties_database')]",
 					"encrypt": "optional",
 					"trustServerCertificate": true,
-					"authenticationType": "SQL",
-					"userName": "[parameters('rayazuresqldb_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('rayazuresqldb_password')]"
-					}
+					"authenticationType": "SystemAssignedManagedIdentity"
 				},
 				"connectVia": {
 					"referenceName": "ADF-Demo2-SHIR-VM",
