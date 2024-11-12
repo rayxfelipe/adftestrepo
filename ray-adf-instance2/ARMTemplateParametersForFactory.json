@@ -8,6 +8,9 @@
 		"Azuretestdatetime_connectionString": {
 			"value": ""
 		},
+		"rayazuresqldb_password": {
+			"value": ""
+		},
 		"raydatalake2indemorg_accountKey": {
 			"value": ""
 		},
@@ -25,6 +28,9 @@
 		},
 		"rayazuresqldb_properties_typeProperties_database": {
 			"value": "WideWorldImporters-Standard"
+		},
+		"rayazuresqldb_properties_typeProperties_userName": {
+			"value": "sqladmin"
 		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"value": "https://datalakaeacctindemorg.dfs.core.windows.net/"
