@@ -2,6 +2,7 @@
 	"name": "integrationRuntime555",
 	"properties": {
 		"type": "Managed",
+		"description": "in 2",
 		"typeProperties": {
 			"computeProperties": {
 				"location": "AutoResolve",
