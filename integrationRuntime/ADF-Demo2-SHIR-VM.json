@@ -1,7 +1,0 @@
-{
-	"name": "ADF-Demo2-SHIR-VM",
-	"properties": {
-		"type": "SelfHosted",
-		"description": "in 2"
-	}
-}
