@@ -1,0 +1,12 @@
+{
+	"name": "ADF-Demo2-SHIR-VM",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/499bc654-f84c-46c2-952c-b30be508f78c/resourcegroups/ADF-Demo-QA/providers/Microsoft.DataFactory/factories/ray-adf-instance-qa/integrationruntimes/ADF-Demo2-SHIR-VM",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}
