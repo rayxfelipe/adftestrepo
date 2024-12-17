@@ -23,6 +23,14 @@
 			"type": "string",
 			"defaultValue": "https://RayFKeyVault.vault.azure.net/"
 		},
+		"rayazuresqldb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ray-azuresql3-server.database.windows.net"
+		},
+		"rayazuresqldb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "WideWorldImporters-Standard"
+		},
 		"raydatalake2indemorg_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakaeacctindemorg.dfs.core.windows.net/"
@@ -41,14 +49,6 @@
 		},
 		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"type": "secureString"
-		},
-		"rayazuresqldb_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "ray-azuresql3-server.database.windows.net"
-		},
-		"rayazuresqldb_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "WideWorldImporters-Standard"
 		}
 	},
 	"variables": {
@@ -88,6 +88,24 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/rayazuresqldb')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "a",
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('rayazuresqldb_properties_typeProperties_server')]",
+					"database": "[parameters('rayazuresqldb_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": true,
+					"authenticationType": "SystemAssignedManagedIdentity"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/raydatalake2indemorg')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -118,17 +136,6 @@
 						"value": "[parameters('raydatalake2indemorg_createdinadf2collab_accountKey')]"
 					}
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADF-Demo2-SHIR-VM')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"description": "in 2",
-				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
@@ -436,30 +443,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/rayazuresqldb')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "a",
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"server": "[parameters('rayazuresqldb_properties_typeProperties_server')]",
-					"database": "[parameters('rayazuresqldb_properties_typeProperties_database')]",
-					"encrypt": "optional",
-					"trustServerCertificate": true,
-					"authenticationType": "SystemAssignedManagedIdentity"
-				},
-				"connectVia": {
-					"referenceName": "ADF-Demo2-SHIR-VM",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ADF-Demo2-SHIR-VM')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -557,6 +540,85 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2024-10-01T20:12:42Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TestAzureDevops_Source')]",
+				"[concat(variables('factoryId'), '/datasets/TestAzureDevOps_Target')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TestAzureDevOpsSync1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"description": "pipe 1 changed.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "TestAzureDevops_Source",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "TestAzureDevOps_Target",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-10-01T20:12:41Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/TestAzureDevops_Source')]",

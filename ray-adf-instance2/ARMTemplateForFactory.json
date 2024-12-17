@@ -613,15 +613,9 @@
 					"encrypt": "optional",
 					"trustServerCertificate": true,
 					"authenticationType": "SystemAssignedManagedIdentity"
-				},
-				"connectVia": {
-					"referenceName": "ADF-Demo2-SHIR-VM",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ADF-Demo2-SHIR-VM')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/raydatalake2indemorg')]",
@@ -697,17 +691,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/TestAzureDevOpsSync2')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADF-Demo2-SHIR-VM')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"description": "in 2",
-				"typeProperties": {}
-			},
-			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
