@@ -38,6 +38,15 @@
 		"integrationRuntime1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"value": ""
 		},
+		"Azure-SSIS-IR1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "ray-azuresql4-server.database.windows.net"
+		},
+		"Azure-SSIS-IR1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "sqladmin"
+		},
+		"Azure-SSIS-IR1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},
