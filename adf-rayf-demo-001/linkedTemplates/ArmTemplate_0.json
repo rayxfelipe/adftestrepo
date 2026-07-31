@@ -20,7 +20,7 @@
 				"activities": [
 					{
 						"name": "Copy data1",
-						"description": "",
+						"description": "in main",
 						"type": "Copy",
 						"state": "Inactive",
 						"onInactiveMarkAs": "Succeeded",
