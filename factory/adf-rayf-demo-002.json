@@ -1,0 +1,15 @@
+{
+	"name": "adf-rayf-demo-002",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "westus3",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a8c28983-8f9f-46d4-b82c-b86e1bf610d1",
+		"tenantId": "aa56606c-b0ba-43a8-9c11-eb0144a67efb"
+	}
+}
