@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy data1",
-				"description": "main branch",
+				"description": "update in branch 1",
 				"type": "Copy",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
