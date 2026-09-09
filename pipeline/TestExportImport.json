@@ -1,0 +1,32 @@
+{
+	"name": "TestExportImport",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"description": "test, Aug 31 2026.",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
+			}
+		],
+		"folder": {
+			"name": "LADWP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-08-31T23:50:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

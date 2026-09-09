@@ -1,0 +1,15 @@
+{
+	"name": "adf-demo-001a",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "44ca0b79-c468-45d1-a881-13dd7f4e0034",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}
