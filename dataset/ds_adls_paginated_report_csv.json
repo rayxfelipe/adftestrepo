@@ -1,0 +1,43 @@
+{
+	"name": "ds_adls_paginated_report_csv",
+	"properties": {
+		"description": "Binary CSV export written to the fiscal ADLS Gen2 filesystem.",
+		"linkedServiceName": {
+			"referenceName": "ls_adls_acctdatalakedemo001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"fileSystem": {
+				"type": "string"
+			},
+			"folderPath": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "FisCAL"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().folderPath",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().fileSystem",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}

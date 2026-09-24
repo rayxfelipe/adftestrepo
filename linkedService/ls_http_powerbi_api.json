@@ -1,0 +1,17 @@
+{
+	"name": "ls_http_powerbi_api",
+	"properties": {
+		"description": "HTTP connection used to download completed Power BI paginated report exports.",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://api.powerbi.com/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

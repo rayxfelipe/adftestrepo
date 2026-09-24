@@ -1,0 +1,29 @@
+{
+	"name": "ds_http_powerbi_export_binary",
+	"properties": {
+		"description": "Binary response returned by the Power BI ExportToFile download endpoint.",
+		"linkedServiceName": {
+			"referenceName": "ls_http_powerbi_api",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relativeUrl": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "FisCAL"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativeUrl",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
