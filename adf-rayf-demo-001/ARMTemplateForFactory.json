@@ -6,12 +6,57 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-rayf-demo-001"
+		},
+		"ls_adls_acctdatalakedemo001_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://acctdatalakedemo001.dfs.core.windows.net/"
+		},
+		"ls_http_powerbi_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.powerbi.com/"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/TestExportImport')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"description": "test, Aug 31 2026.",
+						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"enableStaging": false
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "LADWP"
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-08-31T23:50:46Z"
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -44,6 +89,564 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_export_paginated_report_csv')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Renders a Power BI paginated report as CSV through ExportToFile and stores the completed file in ADLS Gen2.",
+				"activities": [
+					{
+						"name": "Get_Client_Id",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://kv-pbi-exp-rayf-001.vault.azure.net/secrets/pbi-export-client-id?api-version=7.5",
+							"connectVia": {
+								"referenceName": "AutoResolveIntegrationRuntime",
+								"type": "IntegrationRuntimeReference"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get_Client_Secret",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://kv-pbi-exp-rayf-001.vault.azure.net/secrets/pbi-export-client-secret?api-version=7.5",
+							"connectVia": {
+								"referenceName": "AutoResolveIntegrationRuntime",
+								"type": "IntegrationRuntimeReference"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get_PowerBI_Token",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_Client_Id",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Get_Client_Secret",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": "https://login.microsoftonline.com/aa56606c-b0ba-43a8-9c11-eb0144a67efb/oauth2/v2.0/token",
+							"connectVia": {
+								"referenceName": "AutoResolveIntegrationRuntime",
+								"type": "IntegrationRuntimeReference"
+							},
+							"body": {
+								"value": "@concat('grant_type=client_credentials&client_id=', activity('Get_Client_Id').output.value, '&client_secret=', uriComponent(activity('Get_Client_Secret').output.value), '&scope=', uriComponent('https://analysis.windows.net/powerbi/api/.default'))",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Start_Paginated_Report_Export",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get_PowerBI_Token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json",
+								"Authorization": {
+									"value": "@concat('Bearer ', activity('Get_PowerBI_Token').output.access_token)",
+									"type": "Expression"
+								}
+							},
+							"turnOffAsync": true,
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/', pipeline().parameters.pWorkspaceId, '/reports/', pipeline().parameters.pReportId, '/ExportTo')",
+								"type": "Expression"
+							},
+							"connectVia": {
+								"referenceName": "AutoResolveIntegrationRuntime",
+								"type": "IntegrationRuntimeReference"
+							},
+							"body": "{\"format\":\"CSV\"}"
+						}
+					},
+					{
+						"name": "Capture_Export_Id",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Start_Paginated_Report_Export",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "ExportId",
+							"value": {
+								"value": "@activity('Start_Paginated_Report_Export').output.id",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Poll_Until_Export_Complete",
+						"type": "Until",
+						"dependsOn": [
+							{
+								"activity": "Capture_Export_Id",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@or(equals(variables('ExportStatus'), 'Succeeded'), or(equals(variables('ExportStatus'), 'Failed'), equals(variables('ExportStatus'), 'Disabled')))",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Get_Export_Status",
+									"type": "WebActivity",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.00:10:00",
+										"retry": 2,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": true
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"method": "GET",
+										"headers": {
+											"Authorization": {
+												"value": "@concat('Bearer ', activity('Get_PowerBI_Token').output.access_token)",
+												"type": "Expression"
+											}
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/', pipeline().parameters.pWorkspaceId, '/reports/', pipeline().parameters.pReportId, '/exports/', variables('ExportId'))",
+											"type": "Expression"
+										},
+										"connectVia": {
+											"referenceName": "AutoResolveIntegrationRuntime",
+											"type": "IntegrationRuntimeReference"
+										}
+									}
+								},
+								{
+									"name": "Set_Export_Status",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Get_Export_Status",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "ExportStatus",
+										"value": {
+											"value": "@activity('Get_Export_Status').output.status",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Wait_Before_Next_Poll",
+									"type": "Wait",
+									"dependsOn": [
+										{
+											"activity": "Set_Export_Status",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 5
+									}
+								}
+							],
+							"timeout": "0.00:30:00"
+						}
+					},
+					{
+						"name": "Route_Export_Result",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Poll_Until_Export_Complete",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@equals(variables('ExportStatus'), 'Succeeded')",
+								"type": "Expression"
+							},
+							"ifFalseActivities": [
+								{
+									"name": "Fail_Export",
+									"type": "Fail",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"message": {
+											"value": "@concat('Power BI paginated report export ended with status: ', variables('ExportStatus'))",
+											"type": "Expression"
+										},
+										"errorCode": "PBI_EXPORT_FAILED"
+									}
+								}
+							],
+							"ifTrueActivities": [
+								{
+									"name": "Copy_Exported_CSV_To_ADLS",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.00:20:00",
+										"retry": 2,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": true
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "HttpReadSettings",
+												"requestMethod": "GET",
+												"additionalHeaders": {
+													"value": "@concat('Authorization: Bearer ', activity('Get_PowerBI_Token').output.access_token)",
+													"type": "Expression"
+												}
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_http_powerbi_export_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"relativeUrl": {
+													"value": "@concat('v1.0/myorg/groups/', pipeline().parameters.pWorkspaceId, '/reports/', pipeline().parameters.pReportId, '/exports/', variables('ExportId'), '/file')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_adls_paginated_report_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileSystem": {
+													"value": "@pipeline().parameters.pOutputFileSystem",
+													"type": "Expression"
+												},
+												"folderPath": {
+													"value": "@pipeline().parameters.pOutputDirectory",
+													"type": "Expression"
+												},
+												"fileName": {
+													"value": "@concat(pipeline().parameters.pOutputFilePrefix, '-', formatDateTime(utcNow(), 'yyyyMMddTHHmmssZ'), '.csv')",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"pWorkspaceId": {
+						"type": "string",
+						"defaultValue": "445207c2-a9a7-4401-ba1f-fc6337f99e1b"
+					},
+					"pReportId": {
+						"type": "string",
+						"defaultValue": "a9499fee-f8ea-4a7e-9310-2d69cb283c54"
+					},
+					"pOutputFileSystem": {
+						"type": "string",
+						"defaultValue": "fiscal"
+					},
+					"pOutputDirectory": {
+						"type": "string",
+						"defaultValue": "paginated-reports/fiscal-transactions"
+					},
+					"pOutputFilePrefix": {
+						"type": "string",
+						"defaultValue": "Fiscal-Transactions-Sample"
+					}
+				},
+				"variables": {
+					"ExportId": {
+						"type": "String"
+					},
+					"ExportStatus": {
+						"type": "String",
+						"defaultValue": "NotStarted"
+					}
+				},
+				"folder": {
+					"name": "FisCAL"
+				},
+				"annotations": [
+					"Power BI",
+					"Paginated Report",
+					"CSV",
+					"ADLS Gen2"
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]",
+				"[concat(variables('factoryId'), '/datasets/ds_http_powerbi_export_binary')]",
+				"[concat(variables('factoryId'), '/datasets/ds_adls_paginated_report_csv')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_validation_wait')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Minimal validation pipeline with a short Wait activity.",
+				"activities": [
+					{
+						"name": "wait_5_seconds",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 5
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_adls_paginated_report_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Binary CSV export written to the fiscal ADLS Gen2 filesystem.",
+				"linkedServiceName": {
+					"referenceName": "ls_adls_acctdatalakedemo001",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileSystem": {
+						"type": "string"
+					},
+					"folderPath": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "FisCAL"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderPath",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().fileSystem",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_acctdatalakedemo001')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_http_powerbi_export_binary')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Binary response returned by the Power BI ExportToFile download endpoint.",
+				"linkedServiceName": {
+					"referenceName": "ls_http_powerbi_api",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"relativeUrl": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "FisCAL"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "@dataset().relativeUrl",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_http_powerbi_api')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls_acctdatalakedemo001')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_acctdatalakedemo001_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_http_powerbi_api')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "HTTP connection used to download completed Power BI paginated report exports.",
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('ls_http_powerbi_api_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",

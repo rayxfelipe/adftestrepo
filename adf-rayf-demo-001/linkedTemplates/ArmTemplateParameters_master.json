@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "adf-rayf-demo-001"
 		},
+		"ls_adls_acctdatalakedemo001_properties_typeProperties_url": {
+			"value": "https://acctdatalakedemo001.dfs.core.windows.net/"
+		},
+		"ls_http_powerbi_api_properties_typeProperties_url": {
+			"value": "https://api.powerbi.com/"
+		},
 		"containerUri": {
 			"value": ""
 		},

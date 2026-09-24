@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-rayf-demo-001"
 		},
+		"ls_adls_acctdatalakedemo001_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://acctdatalakedemo001.dfs.core.windows.net/"
+		},
+		"ls_http_powerbi_api_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.powerbi.com/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -33,6 +41,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ls_adls_acctdatalakedemo001_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_acctdatalakedemo001_properties_typeProperties_url')]"
+					},
+					"ls_http_powerbi_api_properties_typeProperties_url": {
+						"value": "[parameters('ls_http_powerbi_api_properties_typeProperties_url')]"
 					}
 				}
 			},
