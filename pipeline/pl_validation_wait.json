@@ -1,0 +1,18 @@
+{
+	"name": "pl_validation_wait",
+	"properties": {
+		"description": "Minimal validation pipeline with a short Wait activity.",
+		"activities": [
+			{
+				"name": "wait_5_seconds",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 5
+				}
+			}
+		],
+		"annotations": []
+	}
+}
